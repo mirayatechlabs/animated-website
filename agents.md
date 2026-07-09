@@ -25,7 +25,7 @@ Rules are strict constraints and guidelines that the agent must never violate.
   * Adhere strictly to the project's existing architectural patterns and style guides (e.g., SOLID principles, specific naming conventions).
   * Never modify third-party libraries or auto-generated files unless explicitly instructed.
 * **Safety & Security**:
-  * 🔴 **CRITICAL**: Adhere strictly to the security policies defined in [sicurezza.md](sicurezza.md).
+  * 🔴 **CRITICAL**: Adhere strictly to the security policies defined in [.agents/rules/sicurezza.md](.agents/rules/sicurezza.md).
   * Never hardcode secrets, API keys, or sensitive credentials in the code.
   * Validate all inputs to prevent common vulnerabilities (e.g., injection attacks, XSS).
 * **Communication Rules**:
