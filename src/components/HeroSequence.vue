@@ -85,14 +85,14 @@ onMounted(() => {
   window.addEventListener('resize', resizeHandler);
 
   const heroScrollTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "+=150%",
-      scrub: true,
-      pin: true,
-      anticipatePin: 1
-    }
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "+=150%",
+        scrub: 0.1, // Ridotto drasticamente per rendere lo scroll immediato e non scattoso
+        pin: true,
+        anticipatePin: 1 // Aiuta a prevenire lo scatto quando si "aggancia"
+      }
   });
 
   heroScrollTl.to(heroParams, {

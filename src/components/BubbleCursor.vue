@@ -17,16 +17,15 @@ let xTo, yTo;
 let parentSection = null;
 
 onMounted(() => {
-  xTo = gsap.quickTo(mainBubbleRef.value, "x", {duration: 0.15, ease: "power3"});
-  yTo = gsap.quickTo(mainBubbleRef.value, "y", {duration: 0.15, ease: "power3"});
+  gsap.set(mainBubbleRef.value, { scale: 0 });
+  xTo = gsap.quickTo(mainBubbleRef.value, "x", {duration: 0.2, ease: "power3.out"});
+  yTo = gsap.quickTo(mainBubbleRef.value, "y", {duration: 0.2, ease: "power3.out"});
 
-  // Attach events directly to the parent section (.brand-story) so we don't break CSS flexbox or GSAP
   parentSection = document.querySelector('.brand-story');
   if (parentSection) {
     parentSection.addEventListener('mousemove', onMouseMove);
     parentSection.addEventListener('mouseenter', onMouseEnter);
     parentSection.addEventListener('mouseleave', onMouseLeave);
-    // Nasconde il cursore normale sulla sezione
     parentSection.style.cursor = 'none';
   }
 });
@@ -83,8 +82,15 @@ const spawnTrail = (x, y) => {
   });
 };
 
-const onMouseEnter = () => isHovering.value = true;
-const onMouseLeave = () => isHovering.value = false;
+const onMouseEnter = () => {
+  isHovering.value = true;
+  gsap.to(mainBubbleRef.value, { scale: 1, duration: 0.4, ease: "back.out(1.5)" });
+};
+
+const onMouseLeave = () => {
+  isHovering.value = false;
+  gsap.to(mainBubbleRef.value, { scale: 0, duration: 0.3, ease: "power2.in" });
+};
 </script>
 
 <style scoped>
@@ -110,14 +116,13 @@ const onMouseLeave = () => isHovering.value = false;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(168, 85, 247, 0.15) 50%, rgba(0,0,0,0) 100%);
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), inset 0 0 10px rgba(255,255,255,0.6);
   backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   opacity: 0;
-  transform: scale(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .main-bubble.active {
   opacity: 1;
-  transform: scale(1);
 }
 
 :global(.trail-bubble) {
@@ -128,5 +133,12 @@ const onMouseLeave = () => isHovering.value = false;
   box-shadow: inset 0 0 5px rgba(255,255,255,0.4);
   pointer-events: none;
   z-index: 49;
+}
+
+/* Disabilita il cursore custom su mobile/touch per evitare problemi */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .cursor-layer {
+    display: none !important;
+  }
 }
 </style>

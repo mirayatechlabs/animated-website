@@ -16,9 +16,14 @@ import '../style.css';
   <script>
     import { gsap } from 'gsap';
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    import Lenis from 'lenis';
+    import Lenis from '@studio-freight/lenis';
 
     gsap.registerPlugin(ScrollTrigger);
+
+    // FIX PER MOBILE: Previene i salti causati dalla barra dell'URL che scompare
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    // ScrollTrigger.normalizeScroll(true); // Usa solo se i glitch persistono, a volte confligge con Lenis
+
 
     const lenis = new Lenis({
       duration: 1.5,
