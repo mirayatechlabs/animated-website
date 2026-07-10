@@ -86,20 +86,20 @@ h1, h2, h3 {
   z-index: 10;
   width: 100%;
   text-align: center;
-  max-width: 900px;
+  max-width: 1400px;
   padding: 0 2rem;
   margin: auto;
   transform: translateY(20px);
 }
 
 .hero h1.tagline {
-  font-size: 5.5rem;
+  font-size: clamp(1.8rem, 6vw, 5.5rem);
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
-  color: #FFFFFF; /* Forza il bianco puro, toglie l'effetto giallino */
-  text-shadow: 0 4px 25px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5); /* Crea stacco netto dal fondo */
+  color: #FFFFFF;
+  text-shadow: 0 4px 25px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5);
 }
 /* Stile per l'animazione SplitText manuale */
 .char {
@@ -385,7 +385,6 @@ h1, h2, h3 {
   .nav-links { gap: 1rem; font-size: 0.9rem; flex-wrap: wrap; justify-content: center; }
   
   /* Hero */
-  .hero h1.tagline { font-size: 2.5rem; }
   .hero-content p { font-size: 1.1rem; padding: 0 1rem; }
   
   /* Brand Story */
