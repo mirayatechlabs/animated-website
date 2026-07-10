@@ -1,0 +1,96 @@
+---
+import '../style.css';
+---
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecosistemi Relazionali | Web Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <slot />
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import Lenis from 'lenis';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+
+    const tlHero = gsap.timeline();
+    tlHero.from('.tagline', {
+      y: 40,
+      opacity: 0,
+      duration: 1.5,
+      ease: "power3.out",
+      delay: 0.2
+    });
+    tlHero.from('.scroll-indicator', {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      ease: "power2.out"
+    }, "-=0.8");
+
+    gsap.from('.story-text-center > *', {
+      y: 60,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".brand-story",
+        start: "top 70%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Parallasse di rallentamento e scorrimento per il video di background (stile organico)
+    gsap.fromTo('.story-video-bg', 
+      { scale: 1.05, yPercent: 0 },
+      {
+        scale: 1.25, // Si espande maggiormente nascondendo sempre i bordi
+        yPercent: 8, // Parallasse ridotto per evitare che il bordo superiore entri nello schermo
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".brand-story",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      }
+    );
+
+    gsap.from('.product-card', {
+      y: 80,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.15,
+      ease: "power4.out",
+      clearProps: "all", // Fondamentale: GSAP toglie lo style inline dopo l'animazione permettendo all'hover CSS di funzionare!
+      scrollTrigger: {
+        trigger: ".product-grid",
+        start: "top 75%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  </script>
+</body>
+</html>

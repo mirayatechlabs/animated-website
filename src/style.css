@@ -69,16 +69,17 @@ h1, h2, h3 {
 .video-background canvas {
   width: 100%;
   height: 100%;
+  display: block; /* Rimuove gap di default */
   object-fit: cover;
-  transform: scale(1.05); /* Prevents edge bleeding during parallax */
+  transform: scale(1.05); /* Evita bordi visibili */
 }
 .video-background .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(13,8,20,0.4) 0%, rgba(13,8,20,1) 100%);
+  height: 102%; /* Previene la righina bianca coprendo i sub-pixel in basso */
+  background: linear-gradient(180deg, rgba(13,8,20,0) 0%, rgba(13,8,20,0.5) 60%, rgba(13,8,20,1) 95%, rgba(13,8,20,1) 100%);
 }
 .hero-content {
   position: relative;
@@ -128,29 +129,56 @@ h1, h2, h3 {
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* Altre sezioni... layout base aggiornato con Syne */
-.brand-story .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+/* 2. Brand Story */
+.brand-story {
+  position: relative;
+  overflow: hidden;
+  padding: 12rem 0;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  margin-top: -1px; /* Chiude qualsiasi micro-fessura tra le sezioni */
 }
-.story-text h2 {
-  font-size: 3.5rem;
+.video-bg-container {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+}
+.story-video-bg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  display: block;
+  transform: scale(1.05); /* Nasconde i bordi */
+  will-change: transform;
+}
+.video-bg-container .video-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  /* Sfuma sopra e sotto verso il nero della pagina, e aggiunge una leggera vignettatura ai bordi */
+  background: 
+    linear-gradient(to bottom, rgba(13,8,20,1) 0%, rgba(13,8,20,0) 20%, rgba(13,8,20,0) 80%, rgba(13,8,20,1) 100%),
+    radial-gradient(circle at center, rgba(13,8,20,0) 0%, rgba(13,8,20,0.6) 100%);
+}
+.brand-story .relative-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.story-text-center h2 {
+  font-size: 4.5rem;
   margin-bottom: 2rem;
   line-height: 1.1;
 }
-.story-text p {
-  font-size: 1.15rem;
-  line-height: 1.7;
+.story-text-center p {
+  font-size: 1.35rem;
+  line-height: 1.8;
   margin-bottom: 1.5rem;
-  color: rgba(248, 246, 250, 0.8);
+  color: rgba(248, 246, 250, 0.85);
   font-weight: 300;
-}
-.image-placeholder {
-  height: 500px;
-  background: linear-gradient(45deg, var(--bg-secondary), var(--bg-primary));
-  border-radius: 12px;
 }
 
 /* 3. Pillars */
@@ -164,12 +192,28 @@ h1, h2, h3 {
   gap: 3rem;
   text-align: center;
 }
+.pillar {
+  padding: 2rem;
+  border-radius: 16px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+  cursor: pointer;
+}
+.pillar:hover {
+  transform: translateY(-10px);
+  background-color: white;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
 .icon-placeholder {
   width: 80px;
   height: 80px;
   margin: 0 auto 2rem;
   border-radius: 50%;
   background: var(--bg-primary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pillar:hover .icon-placeholder {
+  transform: scale(1.1) translateY(-5px);
+  background: var(--accent);
 }
 .pillar h3 {
   font-size: 1.5rem;
@@ -196,12 +240,20 @@ h1, h2, h3 {
   padding: 2.5rem;
   border-radius: 20px;
   text-align: left;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border 0.5s ease;
+  border: 1px solid transparent;
   cursor: pointer;
 }
 .product-card:hover {
   transform: translateY(-15px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 20px rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+.product-card:hover .card-media video {
+  transform: scale(1.05);
 }
 .product-image-placeholder, .card-media {
   height: 250px;
@@ -214,6 +266,7 @@ h1, h2, h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .product-card h3 {
   font-size: 1.8rem;
@@ -224,6 +277,7 @@ h1, h2, h3 {
   font-weight: 600;
   font-size: 1.1rem;
   font-family: var(--font-body);
+  margin-top: auto;
 }
 
 /* 6. CTA */

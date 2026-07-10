@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSequence from '../components/HeroSequence.vue';
+---
+
+<Layout>
+  <!-- 1. HERO SECTION -->
+  <section class="section hero">
+    <HeroSequence client:load />
+    
+    <div class="hero-content">
+      <h1 class="tagline">Oltre l'Algoritmo.<br>Intelligenze che Connettono.</h1>
+    </div>
+    
+    <div class="scroll-indicator">
+      <p>Scopri il nostro approccio</p>
+      <div class="indicator-line"></div>
+    </div>
+  </section>
+
+  <!-- 2. BRAND STORY SECTION -->
+  <section class="section brand-story">
+    <div class="video-bg-container">
+      <video class="story-video-bg" src="/animated_bobbles.mp4" autoplay loop muted playsinline></video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="container relative-content">
+      <div class="story-text-center">
+        <h2>La nostra etica digitale</h2>
+        <p>Progettiamo spazi web radicali: architetture tecnologiche che non sfruttano, ma arricchiscono le comunità.</p>
+        <p>In un mondo guidato dall'astrazione, riportiamo l'attenzione sulla singolarità delle relazioni, sfidando l'ottimizzazione sfrenata.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. FEATURES/PILLARS SECTION -->
+  <section class="section pillars">
+    <div class="container">
+      <div class="horizontal-pillars">
+        <div class="pillar">
+          <div class="icon-placeholder"></div>
+          <h3>Interfacce Non Lineari</h3>
+          <p>Navigazioni che accolgono l'incertezza e la scoperta.</p>
+        </div>
+        <div class="pillar">
+          <div class="icon-placeholder"></div>
+          <h3>Codice Intersezionale</h3>
+          <p>Algoritmi pensati per non replicare bias sistemici.</p>
+        </div>
+        <div class="pillar">
+          <div class="icon-placeholder"></div>
+          <h3>Tempo Ritrovato</h3>
+          <p>Design che non ruba attenzione, ma la restituisce.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PRODUCT SHOWCASE SECTION -->
+  <section class="section product-showcase">
+    <div class="container">
+      <h2>Pratiche di Cura Digitale</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="card-media">
+            <video src="/neural_network.mp4" autoplay loop muted playsinline></video>
+          </div>
+          <h3>Spazi Web Radicali</h3>
+          <p class="price">Design Antifragile</p>
+        </div>
+        <div class="product-card">
+          <div class="product-image-placeholder"></div>
+          <h3>Sistemi IA Relazionali</h3>
+          <p class="price">Ascolto e Supporto 24/7</p>
+        </div>
+        <div class="product-card">
+          <div class="product-image-placeholder"></div>
+          <h3>Identità Plurali</h3>
+          <p class="price">Narrazioni Autentiche</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CALL TO ACTION SECTION -->
+  <section class="section cta">
+    <div class="container">
+      <h2>Costruiamo insieme.</h2>
+      <p>Entra a far parte di un ecosistema che ridefinisce le regole del gioco.</p>
+      <div class="signup-form">
+        <input type="email" placeholder="Il tuo indirizzo email" />
+        <button type="submit">Unisciti al network</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="logo">Ecosistemi Relazionali</div>
+        <div class="links">
+          <a href="#">Manifesto</a>
+          <a href="#">Pratiche</a>
+          <a href="#">Visione</a>
+        </div>
+        <div class="socials">
+          <a href="#">Twitter</a>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Ecosistemi Relazionali. Nessun diritto riservato.
+      </div>
+    </div>
+  </footer>
+</Layout>
