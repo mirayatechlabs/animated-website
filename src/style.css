@@ -90,6 +90,7 @@ h1, h2, h3 {
   padding: 0 2rem;
   margin: auto;
   transform: translateY(20px);
+  mix-blend-mode: exclusion;
 }
 
 .hero h1.tagline {
