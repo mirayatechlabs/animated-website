@@ -21,19 +21,20 @@ import BubbleCursor from '../components/BubbleCursor.vue';
 
   <!-- 2. BRAND STORY SECTION -->
   <section class="section brand-story">
-    <BubbleCursor client:load>
-      <div class="video-bg-container">
-        <video class="story-video-bg" src="/animated_bobbles.mp4" autoplay loop muted playsinline></video>
-        <div class="video-overlay"></div>
+    <div class="video-bg-container">
+      <video class="story-video-bg" src="/animated_bobbles.mp4" autoplay loop muted playsinline></video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="container relative-content">
+      <div class="story-text-center">
+        <h2>La nostra etica digitale</h2>
+        <p>Progettiamo spazi web radicali: architetture tecnologiche che non sfruttano, ma arricchiscono le comunità.</p>
+        <p>In un mondo guidato dall'astrazione, riportiamo l'attenzione sulla singolarità delle relazioni, sfidando l'ottimizzazione sfrenata.</p>
       </div>
-      <div class="container relative-content">
-        <div class="story-text-center">
-          <h2>La nostra etica digitale</h2>
-          <p>Progettiamo spazi web radicali: architetture tecnologiche che non sfruttano, ma arricchiscono le comunità.</p>
-          <p>In un mondo guidato dall'astrazione, riportiamo l'attenzione sulla singolarità delle relazioni, sfidando l'ottimizzazione sfrenata.</p>
-        </div>
-      </div>
-    </BubbleCursor>
+    </div>
+    
+    <!-- BubbleCursor Overlay indipendente (non rompe GSAP né CSS) -->
+    <BubbleCursor client:load />
   </section>
 
   <!-- 3. FEATURES/PILLARS SECTION -->
