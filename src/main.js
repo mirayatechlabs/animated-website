@@ -133,8 +133,10 @@ gsap.to(heroParams, {
   scrollTrigger: {
     trigger: ".hero",
     start: "top top",
-    end: "bottom top",
-    scrub: true
+    end: "+=150%", // Il trucco magico: pinna la Hero per il 150% dell'altezza dello schermo!
+    scrub: true,
+    pin: true, // Blocca lo scroll della pagina finché l'animazione non finisce
+    anticipatePin: 1
   }
 });
 
