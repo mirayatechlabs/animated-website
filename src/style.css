@@ -175,11 +175,14 @@ h1, h2, h3 {
   max-width: 900px;
   margin: 0 auto;
 }
-.features-header h2 {
-  font-size: 3.5rem;
-  font-weight: 800;
+.story-text-center h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5.5rem;
+  font-weight: 500;
+  font-style: italic;
   margin-bottom: 1.5rem;
-  color: rgba(248, 246, 250, 0.85);
+  color: rgba(248, 246, 250, 1);
+  letter-spacing: -0.01em;
 }
 .story-text-center p {
   font-size: 1.35rem;
@@ -388,7 +391,7 @@ h1, h2, h3 {
   /* Brand Story */
   .brand-story { padding: 6rem 5%; }
   .brand-story .container { grid-template-columns: 1fr; }
-  .story-text-center h2 { font-size: 2.5rem; }
+  .story-text-center h2 { font-size: 3rem; }
   .story-text-center p { font-size: 1.1rem; }
   
   /* Pillars */

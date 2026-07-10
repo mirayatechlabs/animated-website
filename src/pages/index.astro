@@ -119,4 +119,28 @@ import BubbleCursor from '../components/BubbleCursor.vue';
       </div>
     </div>
   </footer>
+
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animazione Premium per la Brand Story
+    const storyElements = document.querySelectorAll('.story-text-center > *');
+    
+    if (storyElements.length > 0) {
+      gsap.from(storyElements, {
+        scrollTrigger: {
+          trigger: '.brand-story',
+          start: 'top 75%',
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.25,
+        ease: 'power3.out'
+      });
+    }
+  </script>
 </Layout>
