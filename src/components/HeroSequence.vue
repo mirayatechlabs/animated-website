@@ -89,7 +89,7 @@ onMounted(() => {
         trigger: ".hero",
         start: "top top",
         end: "+=150%",
-        scrub: 0.1, // Ridotto drasticamente per rendere lo scroll immediato e non scattoso
+        scrub: 0.8, // Alzato per ridare fluidità e "scivolamento" al tocco su mobile
         pin: true,
         anticipatePin: 1 // Aiuta a prevenire lo scatto quando si "aggancia"
       }
