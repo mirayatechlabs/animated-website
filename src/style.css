@@ -81,6 +81,29 @@ h1, h2, h3 {
   background: linear-gradient(180deg, rgba(13,8,20,0.1) 0%, rgba(13,8,20,0.4) 60%, rgba(13,8,20,0.9) 100%);
   pointer-events: none;
 }
+.audio-toggle-btn {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.audio-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
 .hero-content {
   position: relative;
   z-index: 10;
