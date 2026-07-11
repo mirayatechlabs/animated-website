@@ -68,12 +68,16 @@ h1, h2, h3 {
   overflow: hidden;
   z-index: 1;
   box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+  background-color: var(--bg-primary); /* Sfondo nero per il fade out del loop */
 }
 .hero-video-frame video {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+}
+#heroVideo {
+  transition: opacity 0.8s ease-in-out;
 }
 .hero-video-frame .overlay {
   position: absolute;
