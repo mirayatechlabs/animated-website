@@ -30,20 +30,25 @@ import BubbleCursor from '../components/BubbleCursor.vue';
     
     <div class="container relative-content">
       <div class="horizontal-pillars">
-        <div class="pillar">
-          <div class="icon-placeholder"></div>
-          <h3>Interfacce Non Lineari</h3>
-          <p>Navigazioni che accolgono l'incertezza e la scoperta.</p>
+        <!-- Pillar 01 -->
+        <div class="pillar" data-drawer-title="Architetture Web Sostenibili" data-drawer-body="La nostra progettazione si basa sull'ottimizzazione estrema delle performance. Scriviamo codice pulito e leggero che riduce drasticamente il carico sui server e, di conseguenza, le emissioni di CO2 legate al traffico dati. Le nostre piattaforme sono pensate per durare nel tempo, essere accessibili su qualsiasi dispositivo e caricarsi istantaneamente, offrendo un'esperienza utente premium senza sprechi energetici.">
+          <div class="pillar-number">01</div>
+          <h3>Architetture Sostenibili</h3>
+          <p>Sviluppiamo piattaforme leggere e performanti per ridurre l'impatto energetico.</p>
         </div>
-        <div class="pillar">
-          <div class="icon-placeholder"></div>
-          <h3>Codice Intersezionale</h3>
-          <p>Algoritmi pensati per non replicare bias sistemici.</p>
+        
+        <!-- Pillar 02 -->
+        <div class="pillar" data-drawer-title="Intelligenza Artificiale Etica" data-drawer-body="Non crediamo nell'uso dell'IA come scatola nera. Sviluppiamo e integriamo modelli di machine learning trasparenti e addestrati su dati curati e consensuali. I nostri sistemi IA sono progettati per assistere compiti specifici (come analisi dei dati, automazione del supporto o personalizzazione) senza mai ricorrere a pratiche di sorveglianza, profilazione occulta o estrazione predatoria dei dati.">
+          <div class="pillar-number">02</div>
+          <h3>IA Etica e Trasparente</h3>
+          <p>Modelli addestrati responsabilmente, senza profilazione o estrazione predatoria.</p>
         </div>
-        <div class="pillar">
-          <div class="icon-placeholder"></div>
-          <h3>Tempo Ritrovato</h3>
-          <p>Design che non ruba attenzione, ma la restituisce.</p>
+        
+        <!-- Pillar 03 -->
+        <div class="pillar" data-drawer-title="Interfacce a Misura d'Uomo" data-drawer-body="Rifiutiamo categoricamente l'uso di Dark Pattern (trucchi psicologici per ingannare l'utente) e logiche di 'engagement' tossico mirate a creare dipendenza. Le nostre interfacce sono disegnate per essere chiare, oneste e rispettose del tuo tempo. Crediamo in un design che facilita la vita delle persone, permettendo loro di compiere le azioni desiderate nel minor tempo possibile e con la massima serenità.">
+          <div class="pillar-number">03</div>
+          <h3>Design a Misura d'Uomo</h3>
+          <p>Interfacce oneste, libere da dark pattern, progettate per farti risparmiare tempo.</p>
         </div>
       </div>
     </div>
@@ -127,14 +132,24 @@ import BubbleCursor from '../components/BubbleCursor.vue';
     </div>
   </footer>
 
+  <!-- SIDE DRAWER OVERLAY & PANEL -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div class="drawer-header">
+      <h2 id="drawerTitle">Titolo</h2>
+      <button class="drawer-close" id="drawerClose">✕</button>
+    </div>
+    <div class="drawer-body">
+      <p id="drawerBodyText">Contenuto...</p>
+    </div>
+  </div>
+
   <script>
     import { gsap } from 'gsap';
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Animazione Premium per la Brand Story
-    // Usiamo DOMContentLoaded per essere certi che i nodi esistano
     document.addEventListener("DOMContentLoaded", () => {
       const storyElements = document.querySelectorAll('.story-text-center > *');
       
@@ -144,17 +159,50 @@ import BubbleCursor from '../components/BubbleCursor.vue';
           {
             scrollTrigger: {
               trigger: '.brand-story',
-              start: 'top 85%', // Trigger più indulgente
+              start: 'top 85%', 
               toggleActions: 'play none none reverse',
             },
             y: 0,
             opacity: 1,
             duration: 1,
-            stagger: 0.15, // Più veloce
+            stagger: 0.15,
             ease: 'power3.out'
           }
         );
       }
+
+      // DRAWER LOGIC
+      const pillars = document.querySelectorAll('.pillar');
+      const drawer = document.getElementById('sideDrawer');
+      const overlay = document.getElementById('drawerOverlay');
+      const closeBtn = document.getElementById('drawerClose');
+      const drawerTitle = document.getElementById('drawerTitle');
+      const drawerBodyText = document.getElementById('drawerBodyText');
+
+      function openDrawer(title, body) {
+        drawerTitle.textContent = title;
+        drawerBodyText.textContent = body;
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Evita scroll di pagina
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      pillars.forEach(pillar => {
+        pillar.addEventListener('click', () => {
+          const title = pillar.getAttribute('data-drawer-title');
+          const body = pillar.getAttribute('data-drawer-body');
+          if (title && body) openDrawer(title, body);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeDrawer);
+      overlay.addEventListener('click', closeDrawer);
     });
   </script>
 </Layout>
