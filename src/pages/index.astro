@@ -22,9 +22,13 @@ import BubbleCursor from '../components/BubbleCursor.vue';
     </div>
   </section>
 
-  <!-- 2. FEATURES/PILLARS SECTION -->
+  <!-- 2. FEATURES/PILLARS SECTION (CON SFONDO NEURALE) -->
   <section class="section pillars">
-    <div class="container">
+    <div class="pillars-bg-wrapper">
+      <HeroSequence client:load />
+    </div>
+    
+    <div class="container relative-content">
       <div class="horizontal-pillars">
         <div class="pillar">
           <div class="icon-placeholder"></div>
@@ -68,14 +72,6 @@ import BubbleCursor from '../components/BubbleCursor.vue';
           <p class="price">Narrazioni Autentiche</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 4. NEURAL INTERLUDE -->
-  <section class="section neural-interlude" style="position: relative; height: 100vh; background-color: var(--bg-primary); overflow: hidden;">
-    <HeroSequence client:load />
-    <div class="container relative-content" style="height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
-      <!-- Il network 3D interattivo reagisce al mouse in background -->
     </div>
   </section>
 

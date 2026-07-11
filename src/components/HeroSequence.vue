@@ -86,12 +86,12 @@ onMounted(() => {
 
   const heroScrollTl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".hero",
+        trigger: ".pillars",
         start: "top top",
         end: "+=150%",
-        scrub: 0.8, // Alzato per ridare fluidità e "scivolamento" al tocco su mobile
+        scrub: 0.8, // Alzato per ridare fluidità
         pin: true,
-        anticipatePin: 1 // Aiuta a prevenire lo scatto quando si "aggancia"
+        anticipatePin: 1
       }
   });
 
