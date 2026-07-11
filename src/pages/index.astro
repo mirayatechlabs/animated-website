@@ -7,7 +7,10 @@ import BubbleCursor from '../components/BubbleCursor.vue';
 <Layout>
   <!-- 1. HERO SECTION -->
   <section class="section hero">
-    <HeroSequence client:load />
+    <div class="video-background">
+      <video src="/hero_solarpunk.mp4" autoplay loop muted playsinline></video>
+      <div class="overlay"></div>
+    </div>
     
     <div class="hero-content">
       <h1 class="tagline">Oltre l'Algoritmo.<br>Intelligenze che Connettono.</h1>
