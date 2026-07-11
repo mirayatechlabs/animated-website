@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeroSequence from '../components/HeroSequence.vue';
 import BubbleCursor from '../components/BubbleCursor.vue';
+import ServiceShowcase from '../components/ServiceShowcase.vue';
 ---
 
 <Layout>
@@ -71,26 +72,8 @@ import BubbleCursor from '../components/BubbleCursor.vue';
   <!-- 3. PRODUCT SHOWCASE SECTION -->
   <section class="section product-showcase">
     <div class="container">
-      <h2>Pratiche di Cura Digitale</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <div class="card-media">
-            <video src="/neural_network.mp4" autoplay loop muted playsinline></video>
-          </div>
-          <h3>Spazi Web Radicali</h3>
-          <p class="price">Design Antifragile</p>
-        </div>
-        <div class="product-card">
-          <div class="product-image-placeholder"></div>
-          <h3>Sistemi IA Relazionali</h3>
-          <p class="price">Ascolto e Supporto 24/7</p>
-        </div>
-        <div class="product-card">
-          <div class="product-image-placeholder"></div>
-          <h3>Identità Plurali</h3>
-          <p class="price">Narrazioni Autentiche</p>
-        </div>
-      </div>
+      <h2>Le Nostre Soluzioni</h2>
+      <ServiceShowcase client:load />
     </div>
   </section>
 
