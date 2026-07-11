@@ -56,30 +56,30 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
 }
-.video-background {
+.hero-video-frame {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95vw;
+  max-width: 1800px;
+  aspect-ratio: 16 / 9;
+  max-height: 85vh;
+  border-radius: 24px;
   overflow: hidden;
   z-index: 1;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
 }
-.video-background video,
-.video-background canvas {
+.hero-video-frame video {
   width: 100%;
   height: 100%;
-  display: block; /* Rimuove gap di default */
+  display: block;
   object-fit: cover;
-  transform: scale(1.05); /* Evita bordi visibili */
 }
-.video-background .overlay {
+.hero-video-frame .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 102%; /* Previene la righina bianca coprendo i sub-pixel in basso */
-  background: linear-gradient(180deg, rgba(13,8,20,0) 0%, rgba(13,8,20,0.5) 60%, rgba(13,8,20,1) 95%, rgba(13,8,20,1) 100%);
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, rgba(13,8,20,0.1) 0%, rgba(13,8,20,0.4) 60%, rgba(13,8,20,0.9) 100%);
+  pointer-events: none;
 }
 .hero-content {
   position: relative;

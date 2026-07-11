@@ -5,9 +5,9 @@ import BubbleCursor from '../components/BubbleCursor.vue';
 ---
 
 <Layout>
-  <!-- 1. HERO SECTION -->
+  <!-- 1. HERO SECTION (CINEMATIC FRAME) -->
   <section class="section hero">
-    <div class="video-background">
+    <div class="hero-video-frame">
       <video src="/hero_solarpunk.mp4" autoplay loop muted playsinline></video>
       <div class="overlay"></div>
     </div>
@@ -19,6 +19,14 @@ import BubbleCursor from '../components/BubbleCursor.vue';
     <div class="scroll-indicator">
       <p>Scopri il nostro approccio</p>
       <div class="indicator-line"></div>
+    </div>
+  </section>
+
+  <!-- 1.5 NEURAL INTERLUDE -->
+  <section class="section neural-interlude" style="position: relative; height: 100vh; background-color: var(--bg-primary); overflow: hidden;">
+    <HeroSequence client:load />
+    <div class="container relative-content" style="height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+      <!-- Il network 3D interattivo reagisce al mouse in background -->
     </div>
   </section>
 
