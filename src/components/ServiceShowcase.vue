@@ -21,7 +21,17 @@
           <h3 class="detail-title">{{ services[activeIndex].title }}</h3>
           <p class="detail-desc">{{ services[activeIndex].desc }}</p>
           <div class="detail-visual">
-            <div class="abstract-shape" :class="'shape-' + activeIndex"></div>
+            <template v-if="services[activeIndex].videoUrl">
+              <video 
+                :key="'vid-' + activeIndex"
+                class="service-video" 
+                :src="services[activeIndex].videoUrl" 
+                autoplay loop muted playsinline>
+              </video>
+            </template>
+            <template v-else>
+              <div class="abstract-shape" :class="'shape-' + activeIndex"></div>
+            </template>
           </div>
         </div>
       </transition>
@@ -38,7 +48,8 @@ const services = [
   {
     shortTitle: "Siti Web AI-Ready",
     title: "Ottimizzazione per Motori IA (AIO)",
-    desc: "I motori di ricerca si sono evoluti. Non basta più piacere a Google. Strutturiamo il tuo sito web con un'architettura semantica avanzata per fare in modo che venga letto, compreso e citato come fonte primaria dalle Intelligenze Artificiali generative (ChatGPT, Perplexity, Claude)."
+    desc: "I motori di ricerca si sono evoluti. Non basta più piacere a Google. Strutturiamo il tuo sito web con un'architettura semantica avanzata per fare in modo che venga letto, compreso e citato come fonte primaria dalle Intelligenze Artificiali generative (ChatGPT, Perplexity, Claude).",
+    videoUrl: "/video_web.mp4"
   },
   {
     shortTitle: "Automazioni Aziendali",
@@ -181,5 +192,15 @@ const services = [
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-20px);
+}
+
+.service-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
