@@ -46,10 +46,10 @@ import ServiceShowcase from '../components/ServiceShowcase.vue';
     <div class="container relative-content">
       <div class="horizontal-pillars">
         <!-- Pillar 01 -->
-        <div class="pillar" data-drawer-title="Architetture Web Sostenibili" data-drawer-body="La nostra progettazione si basa sull'ottimizzazione estrema delle performance. Scriviamo codice pulito e leggero che riduce drasticamente il carico sui server e, di conseguenza, le emissioni di CO2 legate al traffico dati. Le nostre piattaforme sono pensate per durare nel tempo, essere accessibili su qualsiasi dispositivo e caricarsi istantaneamente, offrendo un'esperienza utente premium senza sprechi energetici.">
+        <div class="pillar" data-drawer-title="Architetture ad Alte Prestazioni" data-drawer-body="La nostra progettazione si basa sull'ottimizzazione estrema delle performance. Scriviamo codice pulito, modulare e leggero per garantire tempi di caricamento istantanei e fluidità assoluta. Le nostre piattaforme sono costruite su basi solide, pensate per scalare con la tua azienda, gestire senza sforzo i picchi di traffico e offrire un'esperienza utente premium su qualsiasi dispositivo.">
           <div class="pillar-number">01</div>
-          <h3>Architetture Sostenibili</h3>
-          <p>Sviluppiamo piattaforme leggere e performanti per ridurre l'impatto energetico.</p>
+          <h3>Architetture Performanti</h3>
+          <p>Sviluppiamo piattaforme veloci, scalabili e strutturate per la massima fluidità.</p>
         </div>
         
         <!-- Pillar 02 -->
@@ -206,16 +206,28 @@ import ServiceShowcase from '../components/ServiceShowcase.vue';
       const iconMuted = document.getElementById('iconMuted');
       const iconUnmuted = document.getElementById('iconUnmuted');
 
-      if (heroVideo && audioToggle) {
-        audioToggle.addEventListener('click', () => {
-          if (heroVideo.muted) {
-            heroVideo.muted = false;
-            iconMuted.style.display = 'none';
-            iconUnmuted.style.display = 'block';
-          } else {
-            heroVideo.muted = true;
-            iconMuted.style.display = 'block';
-            iconUnmuted.style.display = 'none';
+      if (heroVideo) {
+        // Audio Toggle
+        if (audioToggle) {
+          audioToggle.addEventListener('click', () => {
+            if (heroVideo.muted) {
+              heroVideo.muted = false;
+              iconMuted.style.display = 'none';
+              iconUnmuted.style.display = 'block';
+            } else {
+              heroVideo.muted = true;
+              iconMuted.style.display = 'block';
+              iconUnmuted.style.display = 'none';
+            }
+          });
+        }
+
+        // Smooth Loop (Dip to Black Fade)
+        heroVideo.addEventListener('timeupdate', () => {
+          if (heroVideo.duration && heroVideo.currentTime > heroVideo.duration - 0.8) {
+            heroVideo.style.opacity = '0';
+          } else if (heroVideo.currentTime < 1) {
+            heroVideo.style.opacity = '1';
           }
         });
       }
