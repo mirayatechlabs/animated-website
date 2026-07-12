@@ -1,38 +1,49 @@
 <template>
-  <div class="service-showcase">
-    <!-- Elenco Servizi (Interattivo) -->
-    <div class="service-list">
-      <button 
+  <div class="agency-showcase">
+    <!-- Accordion List (Left) -->
+    <div class="service-accordion">
+      <div 
         v-for="(service, index) in services" 
         :key="index"
-        class="service-btn"
+        class="accordion-item"
         :class="{ active: activeIndex === index }"
         @click="activeIndex = index"
       >
-        <span class="service-number">0{{ index + 1 }}</span>
-        <span class="service-title">{{ service.shortTitle }}</span>
-      </button>
-    </div>
-    
-    <!-- Dettagli Servizio -->
-    <div class="service-details">
-      <transition name="fade" mode="out-in">
-        <div class="detail-card" :key="activeIndex">
-          <h3 class="detail-title">{{ services[activeIndex].title }}</h3>
-          <p class="detail-desc">{{ services[activeIndex].desc }}</p>
-          <div class="detail-visual">
-            <template v-if="services[activeIndex].videoUrl">
-              <video 
-                :key="'vid-' + activeIndex"
-                class="service-video" 
-                :src="services[activeIndex].videoUrl" 
-                autoplay loop muted playsinline>
-              </video>
-            </template>
-            <template v-else>
-              <div class="abstract-shape" :class="'shape-' + activeIndex"></div>
-            </template>
+        <div class="accordion-header">
+          <span class="number">0{{ index + 1 }}</span>
+          <h3 class="title">{{ service.shortTitle }}</h3>
+          <span class="icon-arrow">↗</span>
+        </div>
+        
+        <transition 
+          @enter="enterAccordion" 
+          @leave="leaveAccordion"
+          :css="false"
+        >
+          <div class="accordion-body" v-if="activeIndex === index">
+            <div class="body-content">
+              <h4>{{ service.title }}</h4>
+              <p>{{ service.desc }}</p>
+            </div>
           </div>
+        </transition>
+      </div>
+    </div>
+
+    <!-- Media Window (Right) -->
+    <div class="media-window">
+      <transition name="media-fade" mode="out-in">
+        <div class="media-inner" :key="activeIndex">
+          <template v-if="services[activeIndex].videoUrl">
+            <video 
+              class="media-video" 
+              :src="services[activeIndex].videoUrl" 
+              autoplay loop muted playsinline>
+            </video>
+          </template>
+          <template v-else>
+            <div class="media-shape" :class="'shape-' + activeIndex"></div>
+          </template>
         </div>
       </transition>
     </div>
@@ -41,6 +52,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { gsap } from 'gsap';
 
 const activeIndex = ref(0);
 
@@ -48,159 +60,193 @@ const services = [
   {
     shortTitle: "Siti Web AI-Ready",
     title: "Ottimizzazione per Motori IA (AIO)",
-    desc: "I motori di ricerca si sono evoluti. Non basta più piacere a Google. Strutturiamo il tuo sito web con un'architettura semantica avanzata per fare in modo che venga letto, compreso e citato come fonte primaria dalle Intelligenze Artificiali generative (ChatGPT, Perplexity, Claude).",
+    desc: "I motori di ricerca si sono evoluti. Strutturiamo il tuo sito web con un'architettura semantica avanzata per fare in modo che venga letto, compreso e citato come fonte primaria dalle Intelligenze Artificiali generative (ChatGPT, Perplexity, Claude).",
     videoUrl: "/video_web.mp4"
   },
   {
     shortTitle: "Automazioni Aziendali",
     title: "Flussi di Lavoro IA su Misura",
-    desc: "Liberiamo il tuo bene più prezioso: il tempo. Analizziamo i tuoi processi e creiamo agenti IA e automazioni personalizzate per gestire task ripetitivi, servizio clienti o analisi dati. Meno burocrazia, più spazio per il lavoro ad alto valore aggiunto."
+    desc: "Liberiamo il tuo bene più prezioso: il tempo. Analizziamo i tuoi processi e creiamo agenti IA personalizzati per gestire task ripetitivi o analisi dati. Meno burocrazia, più spazio per il lavoro ad alto valore aggiunto."
   },
   {
     shortTitle: "Sviluppo Software",
     title: "Software Gestionale Personalizzato",
-    desc: "Quel file Excel infinito o quel gestionale obsoleto che usi da 10 anni sta bloccando la tua crescita. Lo trasformiamo in un'applicazione web o mobile moderna, scalabile e ultrasicura, disegnata chirurgicamente sulle esatte procedure della tua azienda."
+    desc: "Quel file Excel infinito o quel gestionale obsoleto che usi da 10 anni sta bloccando la tua crescita. Lo trasformiamo in un'applicazione web o mobile moderna, scalabile e ultrasicura, disegnata chirurgicamente sulle tue procedure."
   }
 ];
+
+// GSAP Accordion Animations
+const enterAccordion = (el, done) => {
+  gsap.fromTo(el, 
+    { height: 0, opacity: 0 }, 
+    { height: 'auto', opacity: 1, duration: 0.6, ease: 'power3.out', onComplete: done }
+  );
+};
+
+const leaveAccordion = (el, done) => {
+  gsap.to(el, 
+    { height: 0, opacity: 0, duration: 0.4, ease: 'power3.inOut', onComplete: done }
+  );
+};
 </script>
 
 <style scoped>
-.service-showcase {
+.agency-showcase {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
   margin-top: 4rem;
+  align-items: start;
 }
 @media (max-width: 900px) {
-  .service-showcase {
+  .agency-showcase {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
   }
 }
-.service-list {
+
+/* ACCORDION */
+.service-accordion {
   display: flex;
   flex-direction: column;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
-.service-btn {
+.accordion-item {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  overflow: hidden;
+  group: true;
+}
+.accordion-header {
   display: flex;
   align-items: center;
-  width: 100%;
-  text-align: left;
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
   padding: 2.5rem 0;
-  cursor: pointer;
-  color: rgba(255,255,255,0.4);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.service-btn:hover {
-  color: rgba(255,255,255,0.8);
-  padding-left: 1rem;
-}
-.service-btn.active {
-  color: #fff;
-  border-bottom: 1px solid #fff;
-  padding-left: 1rem;
-}
-.service-number {
+.number {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.5rem;
-  margin-right: 1.5rem;
-  opacity: 0.5;
+  font-style: italic;
+  opacity: 0.3;
+  width: 40px;
+  transition: opacity 0.4s;
 }
-.service-btn.active .service-number {
+.title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+  flex-grow: 1;
+  transition: color 0.4s, transform 0.4s;
+}
+.icon-arrow {
+  font-size: 2rem;
+  opacity: 0;
+  transform: translate(-20px, 20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover & Active States */
+.accordion-item:hover .title {
+  color: rgba(255,255,255,0.8);
+  transform: translateX(10px);
+}
+.accordion-item:hover .icon-arrow {
+  opacity: 0.5;
+  transform: translate(0, 0);
+}
+.accordion-item.active .number {
   opacity: 1;
 }
-.service-title {
-  font-size: 2.2rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+.accordion-item.active .title {
+  color: #fff;
+  transform: translateX(10px);
 }
-@media (max-width: 768px) {
-  .service-title { font-size: 1.5rem; }
-  .service-btn { padding: 1.5rem 0; }
+.accordion-item.active .icon-arrow {
+  opacity: 1;
+  transform: translate(0, 0) rotate(45deg); /* Pointing down-right to the content */
 }
 
-.detail-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 24px;
-  padding: 3rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  box-shadow: inset 0 0 40px rgba(255,255,255,0.01);
+/* Accordion Content */
+.accordion-body {
+  overflow: hidden;
 }
-.detail-title {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+.body-content {
+  padding: 0 0 3rem 40px; /* Aligned with title */
+}
+.body-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
   color: #fff;
+  letter-spacing: -0.01em;
 }
-.detail-desc {
+.body-content p {
   font-size: 1.15rem;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 2rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
   font-weight: 300;
 }
-.detail-visual {
-  flex-grow: 1;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.3);
-  min-height: 250px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+@media (max-width: 768px) {
+  .title { font-size: 1.8rem; }
+  .accordion-header { padding: 1.5rem 0; }
+  .body-content { padding-left: 0; }
 }
 
-/* Abstract shapes to give a unique look to each tab */
-.abstract-shape {
+/* MEDIA WINDOW */
+.media-window {
+  position: sticky;
+  top: 120px;
+  height: 600px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+@media (max-width: 900px) {
+  .media-window {
+    position: relative;
+    top: 0;
+    height: 400px;
+  }
+}
+.media-inner {
+  width: 100%;
+  height: 100%;
+}
+.media-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Abstract Shapes */
+.media-shape {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.8;
-  transition: all 0.5s ease;
-}
-.shape-0 {
-  background: radial-gradient(circle at center, rgba(217, 119, 87, 0.2) 0%, transparent 70%); /* Muted Terracotta */
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 100px;
-  width: 80%; height: 80%;
 }
 .shape-1 {
-  background: linear-gradient(45deg, rgba(43, 226, 138, 0.1) 0%, transparent 100%);
-  border-radius: 24px;
-  width: 90%; height: 60%;
+  background: radial-gradient(circle at top right, rgba(43, 226, 138, 0.15) 0%, transparent 60%);
 }
 .shape-2 {
-  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 10px, transparent 10px, transparent 20px);
-  width: 100%; height: 100%;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px);
 }
 
-/* Transitions */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* Media Fade Transitions */
+.media-fade-enter-active, .media-fade-leave-active {
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.fade-enter-from {
+.media-fade-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: scale(1.05);
 }
-.fade-leave-to {
+.media-fade-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
-}
-
-.service-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  transform: scale(0.95);
 }
 </style>
